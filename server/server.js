@@ -24,8 +24,13 @@ app.post('/users', async (req,res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const { username } = req.body
+        const { firstName } = req.body
+        const { lastName } = req.body
+        const { gender } = req.body
+        const { dateOfBirth } = req.body
+
         const user = new User({ 
-            username,
+            username,firstName,lastName,dateOfBirth,gender,
             password: hashedPassword
         })
         user.save().then(() => {
