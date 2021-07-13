@@ -14,9 +14,26 @@ import Offer from './pages/Offer/offer'
 import Search from './pages/Search/search'
 
 export default function App() {
+  const userReducer = useSelector(state => state.userReducer)
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    dispatch(autoLogin())
+  }, []);
+
   return (
-    <Router>
-      <div>
+    <div>
+      { userReducer.loggedIn ? (
+      // Logged In
+      <>
+        <p>LOGGED IN!!!</p>
+      </>
+    ) : (
+      // Not logged in
+      <p>PLEASE LOG IN M8</p>
+    ) 
+  }
+      <Router>
         <nav>
           <ul>
             <li>
