@@ -23,22 +23,23 @@ let refreshTokens = [] // TODO: Move to mongoDB
 app.post('/users', async (req,res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const { username } = req.body
+        const { email } = req.body
         const { firstName } = req.body
         const { lastName } = req.body
         const { gender } = req.body
         const { dateOfBirth } = req.body
 
         const user = new User({ 
-            username,firstName,lastName,dateOfBirth,gender,
+            email, firstName, lastName, dateOfBirth, gender,
             password: hashedPassword
         })
         user.save().then(() => {
-            console.log("Created user: ", username)
+            console.log("Created user: ", email)
             res.status(201).send()
         })
-        .catch(()=> {
-            res.status(409).send('Username taken')
+        .catch((err)=> {
+            console.log(err)
+            res.status(409).send('Email already exist')
         })
     } catch(err) {
         console.log(err.message)
@@ -46,7 +47,7 @@ app.post('/users', async (req,res) => {
     }
 })
 app.post('/login', (req, res) => {
-    User.findOne({username: req.body.username})
+    User.findOne({email: req.body.email})
     .then(async (user) => {
         if (user===null) return res.status(400).send('Cannot find user')
         try {

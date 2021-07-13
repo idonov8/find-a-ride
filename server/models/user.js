@@ -1,7 +1,14 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
-    userName: {type: String, required: true, unique: true},
+    email: {
+        type: String, 
+        unique: true,
+        trim: true,
+        lowercase: true,
+        required: 'Email address is required',
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    },
     firstName: {type: String, required: true},
     lastName: {type: String, required:true },
     dateOfBirth: {type: Date, required:true},
