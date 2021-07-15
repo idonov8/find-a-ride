@@ -8,6 +8,7 @@ const setLogOut = () => ({ type: "LOG_OUT" });
 
 // Methods
 export const logUserOut = () => dispatch => {
+  console.log("fetching logout...")
   fetch(`${BASE_URL}/logout`, {
     method: "delete",
     headers: {
@@ -18,7 +19,7 @@ export const logUserOut = () => dispatch => {
       refreshToken: localStorage.getItem("refreshToken")
     })
   })
-    .then(() => dispatch(setLogOut))
+    .then(() => dispatch(setLogOut()))
     .catch(err => console.error(err));
 };
 

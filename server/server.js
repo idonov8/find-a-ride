@@ -84,7 +84,9 @@ app.delete('/logout', (req, res) => {
     // TODO: delete from MongoDB
     refreshTokens = refreshTokens.filter(token => token !== req.body.refreshToken)
     res.sendStatus(204)
+    console.log("logged out...")
 })
+
 app.get('/auto_login', authenticateToken, (req, res) => {
     res.json( { user: req.user, accessToken: req.token})
 })

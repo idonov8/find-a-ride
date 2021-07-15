@@ -4,11 +4,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, 
+  Redirect
 } from "react-router-dom"; 
 import { useSelector,  useDispatch } from 'react-redux'
 import { useEffect } from 'react';
-import { autoLogin } from './actions/userActions' 
+import { autoLogin, logUserOut } from './actions/userActions' 
 
 import Login from './pages/Login/login'
 import SignUp from './pages/SignUp/signup'
@@ -18,23 +19,17 @@ import Search from './pages/Search/search'
 export default function App() {
   const userReducer = useSelector(state => state.userReducer)
   const dispatch = useDispatch()
-  
+  const handleLogOut = () => {
+    console.log("logging out...")
+    dispatch(logUserOut())
+  }
+
   useEffect(() => {
     dispatch(autoLogin())
   }, []);
 
   return (
     <div>
-      { userReducer.loggedIn ? (
-      // Logged In
-      <>
-        <p>LOGGED IN!!!</p>
-      </>
-    ) : (
-      // Not logged in
-      <p>PLEASE LOG IN M8</p>
-    ) 
-  }
       <Router>
         <nav>
           <ul>
@@ -45,9 +40,19 @@ export default function App() {
             <li>
               <Link to="/offer">Offer</Link>
             </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
+            { userReducer.loggedIn ? (
+                // Logged In
+                <>
+                  <button onClick={handleLogOut}>Log out</button>
+                  <Redirect to="/search" /> 
+                </>
+              ) : (
+                // Not logged in
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              ) 
+            }
           </ul>
         </nav>
 
