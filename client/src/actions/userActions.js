@@ -41,6 +41,7 @@ export const fetchUser = userInfo => dispatch => {
       //     user: {},
       //.    token: "aaaaa.bbbbb.bbbbb"
       // }
+      console.log("GOT THE TOKEN")
       localStorage.setItem("token", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
       dispatch(setUser(data.user));

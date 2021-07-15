@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom"; 
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchUser } from '../../actions/userActions';
+
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault()
         console.log("Logging in...")
         dispatch(
           fetchUser({
@@ -15,7 +20,7 @@ export default function Login() {
         )
       }
     return (
-        <>
+        <div>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <label>

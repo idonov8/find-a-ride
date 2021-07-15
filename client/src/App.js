@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -8,6 +6,10 @@ import {
   Route,
   Link
 } from "react-router-dom"; 
+import { useSelector,  useDispatch } from 'react-redux'
+import { useEffect } from 'react';
+import { autoLogin } from './actions/userActions' 
+
 import Login from './pages/Login/login'
 import SignUp from './pages/SignUp/signup'
 import Offer from './pages/Offer/offer'
@@ -17,9 +19,9 @@ export default function App() {
   const userReducer = useSelector(state => state.userReducer)
   const dispatch = useDispatch()
   
-  useEffect(() => {
-    dispatch(autoLogin())
-  }, []);
+  // useEffect(() => {
+  //   dispatch(autoLogin())
+  // }, []);
 
   return (
     <div>
@@ -68,8 +70,8 @@ export default function App() {
             <Search />
           </Route>
         </Switch>
-      </div>
     </Router>
+      </div>
   );
 }
 
