@@ -19,9 +19,9 @@ export default function App() {
   const userReducer = useSelector(state => state.userReducer)
   const dispatch = useDispatch()
   
-  // useEffect(() => {
-  //   dispatch(autoLogin())
-  // }, []);
+  useEffect(() => {
+    dispatch(autoLogin())
+  }, []);
 
   return (
     <div>
