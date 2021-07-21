@@ -70,7 +70,7 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/token', (req, res) => {
-    console.log("Got here")
+    console.log("--|| Refreshing token ||--")
     const refreshToken = req.body.refreshToken
     if (refreshToken == null) return res.sendStatus(401)
     if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403) // TODO: Check from MongoDB
@@ -85,7 +85,9 @@ app.delete('/logout', (req, res) => {
     // TODO: delete from MongoDB
     refreshTokens = refreshTokens.filter(token => token !== req.body.refreshToken)
     res.sendStatus(204)
+    console.log("logged out...")
 })
+
 app.get('/auto_login', authenticateToken, (req, res) => {
     res.json( { user: req.user, accessToken: req.token})
 })
