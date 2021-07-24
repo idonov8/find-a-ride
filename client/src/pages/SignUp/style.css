@@ -1,0 +1,14 @@
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+}
+
+label {
+    margin: 5px;
+    align-self: center;
+}
+
+input {
+    align-self: center;
+}
